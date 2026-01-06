@@ -40,7 +40,7 @@ Adapters were filtered using **HiFiAdapterFilt**
 (https://github.com/sheinasim/HiFiAdapterFilt).
 
 ```bash
-ml HiFiAdapterFilt/2.0.1-gompi-2020b
+ml HiFiAdapterFilt
 bash hifiadapterfilt.sh -t 30 -p Prefix -o Outputdirectory
 ```
 
@@ -53,7 +53,7 @@ bash hifiadapterfilt.sh -t 30 -p Prefix -o Outputdirectory
 i. A total of 16 out of 18 genomes were assembled using the following pipeline:
 
 ```bash
-module load Hifiasm/0.13-foss-2019b
+module load Hifiasm
 hifiasm -o Name.hifiasm -t 64 -lo Name.filt.fastq.gz
 ```
 
@@ -70,7 +70,7 @@ contigs smaller than 100 kb were filtered from the primary assemblies, resulting
 in improved dot plot interpretation.
 
 ```bash
-ml SeqKit/2.5.1
+ml SeqKit
 seqkit seq -m 100000 contig.fa > filtered_contig.fa
 ```
 
@@ -87,7 +87,7 @@ were incorporated, and the coverage peak was adjusted to 27 based on
 GenomeScope2 analysis.
 
 ```bash
-ml hifiasm/0.19.6-GCCcore-11.3.0
+ml hifiasm
 
 hifiasm -o NMValA.HIFIasm -t64 --hom-cov 27 \
   --h1 NMValA_OmniC_R1.fastq.gz \
@@ -151,7 +151,7 @@ samtools view -b CC477_HIFI_chr09.bam | samtools fastq - > CC477_HIFI_chr09.fast
 ##### Genome assembly of chromosome 9
 
 ```bash
-ml hifiasm/0.19.6-GCCcore-11.3.0
+ml hifiasm
 hifiasm -o CC477.chr09.HIFIasm -t64 --hom-cov 26 CC477_HIFI_Chr09.fastq.gz
 ```
 
@@ -174,7 +174,7 @@ mv CC477_HIFI_No_Chr09.sorted.bam NO.Chr09.CC477.HIFI.sorted.bam
 ##### Testing BAM file
 
 ```bash
-ml SAMtools/1.18-GCC-12.3.0
+ml SAMtools
 samtools quickcheck NO.Chr09.CC477.HIFI.sorted.bam
 samtools index NO.Chr09.CC477.HIFI.sorted.bam
 samtools idxstats NO.Chr09.CC477.HIFI.sorted.bam
@@ -214,7 +214,7 @@ The assembled genomes were scaffolded using the progenitor genome (version 1),
 where *A. duranensis* and *A. ipaensis* were concatenated into a single reference.
 
 ```bash
-ml RagTag/2.1.0
+ml RagTag
 ragtag.py scaffold -t 64 -r -o Folder_name WildGenome.fa contigs.fa
 ```
 
@@ -226,12 +226,12 @@ Primary contigs or Hap1/Hap2 contigs were plotted against the Tifrunner genome
 (version 2). Scaffolded genomes were also compared against Tifrunner V2.
 
 ```bash
-module load MUMmer/4.0.0rc1-GCCcore-11.3.0
+module load MUMmer
 nucmer -t 64 Tifref.fasta ragtag.scaffold.fasta -p mummerplot
 ```
 
 ```bash
-ml R/4.1.2-foss-2021b
+ml R
 show-coords -c mummerplot.delta > mummerplot.coords
 ./mummerCoordsDotPlotly.R -i mummerplot.coords -o mummerpicture -s -t -m 15000 -q 200000 -k 20 -l
 ```
