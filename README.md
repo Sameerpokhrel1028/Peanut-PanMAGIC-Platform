@@ -25,8 +25,7 @@ and sequencing libraries were prepared for PacBio Sequel II HiFi sequencing.
 Each genotype was sequenced to approximately 20× coverage.
 
 Genome assembly was conducted using **hifiasm**. The assembled genomes were
-scaffolded using the progenitor peanut genomes (*Arachis ipaensis* and
-*Arachis duranensis*) with **RagTag**.
+scaffolded using the reference Tifrunner genome (version 2) with **RagTag**.
 
 ---
 
@@ -282,6 +281,65 @@ The pangenome construction produced the following outputs:
 - **Giraffe indexes**: for graph-based read mapping  
 
 ---
+------------------------------------------------------------
+Pangenome Visualization
+------------------------------------------------------------
+
+Pangenome alignments can be visualized using multiple alignment viewers such as
+Mauve or Geneious Prime. These tools enable interactive inspection of synteny,
+structural variation, rearrangements, and introgressed regions across genomes
+included in the pangenome.
+
+Visualization is performed by exporting pangenome alignments into standard
+multiple-alignment formats (MAF / XMFA).
+
+------------------------------------------------------------
+Visualization workflow
+------------------------------------------------------------
+
+```
+
+Pangenome graph / HAL alignment
+  ↓
+Export multiple alignment (MAF)
+  ↓
+Convert MAF to XMFA
+  ↓
+Visualize in Mauve or Geneious Prime
+
+```
+------------------------------------------------------------
+Exporting alignments from HAL (example)
+------------------------------------------------------------
+
+halStats --genomes chr09.hal
+
+hal2maf \
+  --targetGenomes Tifseq,TifNV,C431 \
+  --maxBlockLen 10000000 \
+  chr09.hal \
+  chr09.maf
+
+------------------------------------------------------------
+Converting MAF to XMFA (Python)
+------------------------------------------------------------
+
+XMFA format is supported by both Mauve and Geneious Prime and allows
+interactive visualization of multiple genome alignments.
+
+python maf2xmfa.py -i chr09.maf -o chr09.xmfa
+
+------------------------------------------------------------
+Visualization
+------------------------------------------------------------
+
+The resulting XMFA file can be opened directly in:
+
+- Mauve: for visualization of locally collinear blocks, rearrangements,
+  and large-scale structural variation.
+
+- Geneious Prime: for integrated visualization alongside genome annotations
+  and sequence features.
 
 ## Notes
 
