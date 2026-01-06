@@ -239,3 +239,46 @@ show-coords -c mummerplot.delta > mummerplot.coords
 ```
 
 ---
+
+## Pangenome Graph Construction
+
+The peanut pangenome was constructed using **Minigraph-Cactus (v2.9.0)**, a
+graph-based pangenome framework that integrates multiple genome assemblies into
+a single reference graph.
+
+Genome assemblies from the parental lines were provided as input, and Tifseq
+was used as the reference genome for graph construction. The resulting pangenome
+graph captures sequence variation and structural diversity across genomes.
+
+The pipeline generates multiple graph and variant representations to support
+downstream analyses, including graph-based read mapping and variant projection.
+
+---
+
+### Pangenome construction command (example)
+
+```bash
+cactus-pangenome \
+  --workDir cactus_wd \
+  ./js \
+  ./sample_names \
+  --outDir output_directory \
+  --outName pangenome_image \
+  --reference Tifseq \
+  --vcf \
+  --giraffe \
+  --gfa \
+  --gbz \
+  --maxCores 80
+
+Output formats
+
+The pangenome construction produced the following outputs:
+
+VCF: projected variants relative to the reference
+
+GFA: graph representation of the pangenome
+
+GBZ: compressed graph index for efficient storage and traversal
+
+Giraffe indexes: for graph-based read mapping
